@@ -8,7 +8,7 @@ security = HTTPBearer()
 
 @app.post("/api/v2/postAlert")
 async def postAlert(
-        data:dict, 
+        json,
         credentials: HTTPAuthorizationCredentials = Depends(security),
         user_agent: Optional[str] = Header(None, alias="User-Agent"),
         netskope_datatype: Optional[str] = Header(None, alias="X-Netskope-DataType"),
@@ -20,7 +20,7 @@ async def postAlert(
         if token != settings.bearer_token:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid Token")
     
-        print(data)
+        print(json)
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,detail="An error occured")
     
