@@ -20,7 +20,9 @@ async def postAlert(
         if token != settings.bearer_token:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid Token")
     
-        print(request)
+        raw_body = await request.body()         # Get raw body as bytes
+        print("Raw Body (bytes):", raw_body)
+        print("Raw Body (string):", raw_body.decode("utf-8"))
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,detail="An error occured")
     
