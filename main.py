@@ -24,7 +24,8 @@ async def postAlert(
         raw_body = await request.body()         # Get raw body as bytes
         decoded_body = raw_body.decode("utf-8")
         
-        
+        print("Raw Body (bytes):", raw_body)
+        print("Raw Body (string):", raw_body.decode("utf-8"))
         try:
             json_body = json.loads(decoded_body)
             print("📥 Received JSON (Pretty Printed):")
