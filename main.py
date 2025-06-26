@@ -35,10 +35,22 @@ async def postAlert(
             # Count logic here
             if isinstance(json_body, list):
                 print(f"✅ JSON is a list with {len(json_body)} objects.")
-            elif isinstance(json_body, dict):
-                print(f"✅ JSON is a dict with {len(json_body)} top-level keys.")
+                total = 0
+                
+                for entry in json_body:
+                    if isinstance (entry, dict) and "data" in entry:
+                        data_items = entry["data"]
+                        if isinstance(data_items,list):
+                            total += len(data_items)
+
+                print(f"✅ Total objects in 'data' fields: {total}")
             else:
-                print("⚠️ JSON is a primitive type, not an object or array.")
+                 print("⚠️ JSON is not a list. Cannot count 'data' elements.")
+
+            # elif isinstance(json_body, dict):
+            #     print(f"✅ JSON is a dict with {len(json_body)} top-level keys.")
+            # else:
+            #     print("⚠️ JSON is a primitive type, not an object or array.")
                 
         except json.JSONDecodeError:
             print("❌ Received non-JSON body:")
