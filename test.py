@@ -1,26 +1,28 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta,timezone
 import time
 last_push_time = None
 
-start_time = datetime.now()
+start_time = datetime.now(timezone.utc)
 isPrinted = False
 
+last_push_done = False
+next_push_time = None
 
 try:
-    while datetime.now() - start_time < timedelta(minutes=5):
-        now = datetime.now()
+    while datetime.now(timezone.utc) - start_time < timedelta(minutes=5):
+        now = datetime.now(timezone.utc)
         
-        if last_push_time is None:
+        if not last_push_done:
             print("Push Data successfully")
-            last_push_time = now
+            last_push_done = True
+            next_push_time = now + timedelta(seconds=5)
         else:
-            time_diff = now - last_push_time
-            if time_diff >=  timedelta(seconds=5):
-                print("Push Data Successfully")
-                last_push_time = now
+            if now >= next_push_time:
+                print("Push 2nd Data successfully")
+                next_push_time = now + timedelta(seconds=5)
                 
             else:
-                print(f"Skipping push — only {time_diff.total_seconds()/60:.2f} minutes elapsed since last push.")
+                 print("Waiting for 5 seconds interval after first push.")
             
         time.sleep(1)
 except Exception as e:

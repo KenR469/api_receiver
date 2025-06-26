@@ -38,6 +38,7 @@ async def postAlert(
                 
                 if isinstance (data_items, list):
                      print(f"✅ 'data' contains {len(data_items)} objects.")
+                     print(f"Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
                 else:
                     print("⚠️ 'data' is not a list.")
             else:
