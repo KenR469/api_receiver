@@ -1,7 +1,4 @@
-# Upgrade pip first (run separately in your shell)
-python -m pip install --upgrade pip
 
-# Then list packages below (no need to prefix with python or pip)
 pydantic-settings
 fastapi
 uvicorn[standard]

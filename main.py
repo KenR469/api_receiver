@@ -3,6 +3,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from config import settings
 from typing import Any, Optional
 import json
+from datetime import datetime, timedelta
 
 app = FastAPI()
 security = HTTPBearer()
@@ -28,16 +29,16 @@ async def postAlert(
         # print("Raw Body (string):", raw_body.decode("utf-8"))
         try:
             json_body = json.loads(decoded_body)
-            print("📥 Received JSON (Pretty Printed):")
-            print(json.dumps(json_body, indent=4))
+            # print("📥 Received JSON (Pretty Printed):")
+            # print(json.dumps(json_body, indent=4))
             
-            #             # Count logic here
-            # if isinstance(json_body, list):
-            #     print(f"✅ JSON is a list with {len(json_body)} objects.")
-            # elif isinstance(json_body, dict):
-            #     print(f"✅ JSON is a dict with {len(json_body)} top-level keys.")
-            # else:
-            #     print("⚠️ JSON is a primitive type, not an object or array.")
+            # Count logic here
+            if isinstance(json_body, list):
+                print(f"✅ JSON is a list with {len(json_body)} objects.")
+            elif isinstance(json_body, dict):
+                print(f"✅ JSON is a dict with {len(json_body)} top-level keys.")
+            else:
+                print("⚠️ JSON is a primitive type, not an object or array.")
                 
         except json.JSONDecodeError:
             print("❌ Received non-JSON body:")
@@ -46,4 +47,5 @@ async def postAlert(
         return {"status": "received"}
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,detail="An error occured")
-    
+
+
