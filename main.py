@@ -29,7 +29,7 @@ async def postAlert(
         # print("Raw Body (string):", raw_body.decode("utf-8"))
         try:
             json_body = json.loads(decoded_body)
-            # print("📥 Received JSON (Pretty Printed):")
+            print("📥 Received JSON (Pretty Printed):")
             # print(json.dumps(json_body, indent=4))
             
             # Count logic here
