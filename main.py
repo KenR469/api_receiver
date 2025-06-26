@@ -33,20 +33,15 @@ async def postAlert(
             # print(json.dumps(json_body, indent=4))
             
             # Count logic here
-            if isinstance(json_body, list):
-                print(f"✅ JSON is a list with {len(json_body)} objects.")
-                total = 0
+            if isinstance(json_body, dict) and "data" in json_body:
+                data_items = json_body["data"]
                 
-                for entry in json_body:
-                    if isinstance (entry, dict) and "data" in entry:
-                        data_items = entry["data"]
-                        if isinstance(data_items,list):
-                            total += len(data_items)
-
-                print(f"✅ Total objects in 'data' fields: {total}")
+                if isinstance (data_items, list):
+                     print(f"✅ 'data' contains {len(data_items)} objects.")
+                else:
+                    print("⚠️ 'data' is not a list.")
             else:
-                 print("⚠️ JSON is not a list. Cannot count 'data' elements.")
-
+                print("⚠️ JSON is not a dict or missing 'data' key.")
             # elif isinstance(json_body, dict):
             #     print(f"✅ JSON is a dict with {len(json_body)} top-level keys.")
             # else:
