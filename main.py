@@ -30,7 +30,7 @@ async def postAlert(
         try:
             json_body = json.loads(decoded_body)
             # print("📥 Received JSON (Pretty Printed):")
-            # print(json.dumps(json_body, indent=4))
+            print(json.dumps(json_body, indent=4))
             
             # Count logic here
             if isinstance(json_body, dict) and "data" in json_body:
